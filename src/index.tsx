@@ -3,12 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider} from "react-redux";
+import configureStore from "./store/configureStore";
+import {theme} from "./theme/myTheme";
+import {ThemeProvider} from "@material-ui/core/styles";
+import {BrowserRouter} from "react-router-dom";
+import GlobalStyles from "./theme/GlobalStyles";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={configureStore()}>
+                <ThemeProvider theme={theme}>
+                    {/*<GlobalStyles/>*/}
+                    <App/>
+                </ThemeProvider>
+            </Provider>
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

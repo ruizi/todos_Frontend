@@ -2,11 +2,8 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {setHttpReqHeaderWithToken, sendDateAxisConfig} from "../utils/setHttpReqHeader";
 import {AUTH_ERROR, USER_PROFILE_LOADED, LOGIN_ERROR, LOGIN_SUCCESS, REGISTER_FAIL, REGISTER_SUCCESS} from './types';
+import {myAction} from "../utils/actionType";
 
-interface myAction {
-    type: string,
-    payload: any | null,
-}
 
 //loading user based on the token from localStorage
 export const loadUser = async (dispatch: Dispatch<myAction>) => {
@@ -18,7 +15,10 @@ export const loadUser = async (dispatch: Dispatch<myAction>) => {
         const response = await axios.get("api/user/profile")
         dispatch({
             type: USER_PROFILE_LOADED,
-            payload: response.data
+            payload: {
+                userInfo: response.data,
+                token: localStorage.token
+            }
         })
     } catch (error) {
         console.log(error)
@@ -38,6 +38,7 @@ export const register = async (email: string, username: string, password: string
             type: REGISTER_SUCCESS,
             payload: response.data,
         })
+        //Todo sending out messages
     } catch (err) {
         const errors = err.response.data.errors;
         console.log(errors)
@@ -57,12 +58,15 @@ export const login = async (email: string, password: string, dispatch: Dispatch<
     try {
         const reqBodyContent = JSON.stringify({email, password});
         const response = await axios.post("/api/auth", reqBodyContent, sendDateAxisConfig())
-        await loadUser(dispatch);
+        //await loadUser(dispatch);
 
         dispatch({
             type: LOGIN_SUCCESS,
             payload: response.data,
         })
+        // dispatch({
+        //     type:
+        // })
 
     } catch (error) {
         dispatch({
