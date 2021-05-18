@@ -1,18 +1,41 @@
 import {myAction} from "../utils/actionType";
-import {AUTH_ERROR, LOGIN_SUCCESS, REGISTER_FAIL, REGISTER_SUCCESS, USER_PROFILE_LOADED} from "../actions/types";
+import {
+    AUTH_ERROR,
+    LOG_OUT,
+    LOGIN_SUCCESS,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS,
+    USER_PROFILE_LOADED
+} from "../actions/types";
 
 export interface AuthInfo {
     token: string | null,
-    isAuth: boolean,
+    isAuthed: boolean,
     loading: boolean,
-    userInfo: {},
+    userInfo: {
+        profile: {
+            todoGroups: Array<any>,
+            _id: string | undefined,
+            email: string | undefined,
+            username: string | undefined,
+            avatar: string | undefined
+        }
+    },
 }
 
 const initialAuthState = {
     token: localStorage.getItem("token"),
-    isAuth: false,
+    isAuthed: false,
     loading: true,
-    userInfo: {},
+    userInfo: {
+        profile: {
+            todoGroups: [],
+            _id: undefined,
+            email: undefined,
+            username: undefined,
+            avatar: undefined
+        }
+    },
 }
 
 
@@ -26,21 +49,30 @@ export const AuthReducer = (state: AuthInfo | null = initialAuthState, action: m
                 userInfo: action.payload.userInfo,
                 token: action.payload.token
             }
-        case AUTH_ERROR:
-            return {
-                ...state,
-                isAuthed: false,
-                loading: false,
-            }
         case LOGIN_SUCCESS:
             localStorage.setItem("token", action.payload.token)
             return {
                 ...state,
+                token: action.payload.token,
                 isAuthed: true,
                 loading: false,
+                userInfo: action.payload.userInfo
             }
         case REGISTER_SUCCESS:
+            return {
+                ...state,
+            }
+        case LOG_OUT:
+            localStorage.removeItem("token")
+            return {
+                ...state,
+                token: null,
+                isAuthed: false,
+                loading: true,
+                userInfo: {}
+            }
         case REGISTER_FAIL:
+        case AUTH_ERROR:
         default:
             return {
                 ...state,

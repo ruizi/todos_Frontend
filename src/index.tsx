@@ -4,22 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
-import configureStore from "./store/configureStore";
-import {theme} from "./theme/myTheme";
-import {ThemeProvider} from "@material-ui/core/styles";
 import {BrowserRouter} from "react-router-dom";
-import GlobalStyles from "./theme/GlobalStyles";
+import store from "./store/configureStore";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Provider store={configureStore()}>
-                <ThemeProvider theme={theme}>
-                    {/*<GlobalStyles/>*/}
-                    <App/>
-                </ThemeProvider>
-            </Provider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

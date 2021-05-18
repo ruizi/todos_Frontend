@@ -3,15 +3,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../store/AppState";
-import {Link as RouterLink} from 'react-router-dom';
+import {NavLink as RouterLink} from "react-router-dom";
 import PropTypes from 'prop-types';
 import React, {Fragment, useState} from "react";
 import {Badge, Button, Hidden, Icon, IconButton} from "@material-ui/core";
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
+import {logout} from "../../actions/authAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,10 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const NavBar = (props: any) => {
-    const {loading, isAuth} = useSelector((state: AppState) => state.auth);
-    console.log(loading, isAuth)
+    const {loading, isAuthed} = useSelector((state: AppState) => state.auth);
     const [notifications] = useState([]);
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const privateLinks = (
         <Fragment>
@@ -59,7 +60,9 @@ const NavBar = (props: any) => {
                     <NotificationsIcon/>
                 </Badge>
             </IconButton>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={() => {
+                logout(dispatch)
+            }}>
                 <InputIcon/>
             </IconButton>
         </Fragment>
@@ -67,8 +70,10 @@ const NavBar = (props: any) => {
 
     const publicLinks = (
         <Fragment>
-            <Button className={classes.button}>Register</Button>
-            <Button className={classes.button}>Login</Button>
+            <Button component={RouterLink} className={classes.button} to="/login"><Typography
+                variant="h5">Sign Up</Typography></Button>
+            <Button component={RouterLink} className={classes.button} to="/login"><Typography
+                variant="h5">Sign In</Typography></Button>
         </Fragment>
     )
 
@@ -85,11 +90,7 @@ const NavBar = (props: any) => {
 
                 <div style={{flexGrow: 1}}/>
                 <Hidden smDown>
-
-
-                    {isAuth ? privateLinks : publicLinks}
-
-
+                    {isAuthed ? privateLinks : publicLinks}
                 </Hidden>
                 <Hidden mdUp>
                     <IconButton

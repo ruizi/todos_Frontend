@@ -7,6 +7,7 @@ import {
     Hidden,
     Typography, ListItemIcon, ListItemText, ListItem
 } from "@material-ui/core";
+import React, {Fragment, useState} from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Link, Link as RouterLink, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -22,13 +23,10 @@ import {useEffect} from "react";
 import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import {theme} from "../../theme/myTheme";
+import {useSelector} from "react-redux";
+import {AppState} from "../../store/AppState";
+import {AuthInfo} from "../../reducers/authReducer";
 
-
-const user = {
-    avatar: 'https://www.gravatar.com/avatar/bedec6b05b6a464242c0520c19e2875d?s=200&r=pg&d=mm',
-    jobTitle: 'Full-Stack Developer',
-    name: 'Rui Cai'
-};
 
 const items = [
     {
@@ -111,6 +109,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const SideBar = (props: any) => {
+    const authInfo: AuthInfo = useSelector((state: AppState) => state.auth);
+    const {isAuthed, userInfo} = authInfo;
     const classes = useStyles();
     const location = useLocation();
     useEffect(() => {
@@ -119,11 +119,16 @@ const SideBar = (props: any) => {
         }
     }, [location.pathname]);
 
+    const user = {
+        avatar: 'https:' + userInfo.profile.avatar,
+        jobTitle: 'Full-Stack Developer',
+        name: userInfo.profile.username
+    };
+
     const {onMobileClose, openMobile} = props;
 
-    const content = (
-        <div>
-            <div className={classes.toolbar}/>
+    const authContent = (
+        <Fragment>
             <Box className={classes.profileBox}>
                 <Avatar className={classes.Avatar} src={user.avatar}/>
                 <Typography variant="h5" color="textPrimary">{user.name}</Typography>
@@ -147,6 +152,31 @@ const SideBar = (props: any) => {
                     </ListItem>
                 ))}
             </List>
+        </Fragment>
+    )
+
+    const unAuthContent = (
+        <Fragment>
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
+                        <ListItemText primary={text}/>
+                    </ListItem>
+                ))}
+            </List>
+        </Fragment>
+    )
+
+    const content = (
+        <div>
+            <div className={classes.toolbar}/>
+            {isAuthed ? (
+                authContent
+            ) : (
+                unAuthContent
+            )}
+
         </div>
     );
 

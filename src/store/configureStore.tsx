@@ -8,8 +8,14 @@ const initialState = {}
 //rootReducer is the combination of all reducer in this application
 //we need to set up an initial/startup state for the application
 //And the devtools is a connector for the browser's dev tools
-const configureStore = () => {
-    return createStore(rootReducer, initialState, composeWithDevTools());
-}
+// const configureStore = () => {
+//     return createStore(rootReducer, initialState, composeWithDevTools());
+// }
 
-export default configureStore;
+const store = createStore(
+    rootReducer,
+    initialState,
+    composeWithDevTools()
+);
+
+export default store;
