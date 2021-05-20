@@ -12,6 +12,7 @@ import {
 } from './types';
 import {myAction} from "../../utils/actionType";
 import {loadTodos} from "./todoItemAction";
+import {AddMessage} from "./MessageAction";
 
 
 //loading user based on the token from localStorage
@@ -21,7 +22,7 @@ export const loadUser = async (dispatch: Dispatch<myAction>) => {
     }
 
     try {
-        const response = await axios.get("/api/user/profile")
+        const response = await axios.get("/api/user")
         dispatch({
             type: USER_PROFILE_LOADED,
             payload: {
@@ -43,22 +44,18 @@ export const loadUser = async (dispatch: Dispatch<myAction>) => {
 export const register = async (email: string, username: string, password: string, dispatch: Dispatch<myAction>) => {
     try {
         const reqBodyContent = JSON.stringify({email, username, password});
-        const response = await axios.post('/api/user/register', reqBodyContent, sendDateAxisConfig());
+        const response = await axios.post('/api/user', reqBodyContent, sendDateAxisConfig());
         dispatch({
             type: REGISTER_SUCCESS,
             payload: response.data,
         })
-        //Todo sending out messages
-    } catch (err) {
-        const errors = err.response.data.errors;
-        console.log(errors)
-        // Todo sending out message
-        // if (errors) {
-        //     errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-        // }
+        AddMessage("Sign up successfully", "success", dispatch);
+    } catch (error) {
+        AddMessage("Please check your input!", "info", dispatch);
+        AddMessage(error.response.data.message, "error", dispatch);
         dispatch({
             type: REGISTER_FAIL,
-            payload: errors,
+            payload: error,
         })
     }
 }
@@ -69,10 +66,8 @@ export const login = async (email: string, password: string, dispatch: Dispatch<
         const reqBodyContent = JSON.stringify({email, password});
         const responseForToken = await axios.post("/api/auth/", reqBodyContent, sendDateAxisConfig())
         //await loadUser(dispatch);
-        console.log(responseForToken.data)
         setHttpReqHeaderWithToken(responseForToken.data.token);
-        const responseForProfile = await axios.get("/api/user/profile")
-
+        const responseForProfile = await axios.get("/api/user")
         dispatch({
             type: LOGIN_SUCCESS,
             payload: {
@@ -81,11 +76,10 @@ export const login = async (email: string, password: string, dispatch: Dispatch<
             },
         })
         loadTodos(dispatch).then();
-        // dispatch({
-        //     type:
-        // })
+        AddMessage("Welcome Back!", "success", dispatch);
     } catch (error) {
-        console.log(error)
+        AddMessage("Please check your input!", "info", dispatch);
+        AddMessage(error.response.data.message, "error", dispatch);
         dispatch({
             type: LOGIN_ERROR,
             payload: {

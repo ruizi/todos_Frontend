@@ -1,23 +1,19 @@
 import React, {Fragment} from "react";
-import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import {
     Card,
     CardHeader, Checkbox,
     Divider,
-    IconButton, ListItemIcon,
     Typography
 } from "@material-ui/core";
 import {showDetails, TodoItem, updateATodoItem} from "../../../redux/actions/todoItemAction";
 import {useDispatch} from "react-redux";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {deleteAGroup} from "../../../redux/actions/todoGroupsAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const TodoListModule = ({props, groupName, toggleDrawer}: any) => {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([-1]);
-
     let todoList: Array<TodoItem> = [];
     const dispatch = useDispatch();
 
@@ -66,18 +61,9 @@ const TodoListModule = ({props, groupName, toggleDrawer}: any) => {
             <Card className={classes.card}>
                 <CardHeader
                     title={
-                        <Typography align="center" variant="h3">
+                        <Typography align="center" variant="h3" style={{textTransform:'capitalize'}} >
                             {groupName}
                         </Typography>
-                    }
-                    action={
-                        <div>
-                            <IconButton color="secondary" onClick={() => {
-                            }} aria-label="clear">
-                                <DeleteSweepIcon/>
-                            </IconButton>
-                        </div>
-
                     }
                 />
                 <Divider/>
@@ -97,18 +83,18 @@ const TodoListModule = ({props, groupName, toggleDrawer}: any) => {
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={todoItem.title}
-                                        secondary={todoItem.subTitle}
+                                        secondary={todoItem.subTitle ? todoItem.subTitle : '---'}
                                         style={todoItem.isFinished ? {textDecorationLine: 'line-through'} : {}}
                                     />
                                     <ListItemSecondaryAction>
-                                            <Checkbox
-                                                edge="end"
-                                                // onChange={handleToggle(todoItem._id, index)}
-                                                onChange={() => {
-                                                    handleToggle(todoItem, index).then();
-                                                }}
-                                                checked={todoItem.isFinished}
-                                            />
+                                        <Checkbox
+                                            edge="end"
+                                            // onChange={handleToggle(todoItem._id, index)}
+                                            onChange={() => {
+                                                handleToggle(todoItem, index).then();
+                                            }}
+                                            checked={todoItem.isFinished}
+                                        />
                                     </ListItemSecondaryAction>
                                 </ListItem>
                             )

@@ -8,7 +8,7 @@ import {AppState} from "../../redux/store/AppState";
 import {Link, NavLink as RouterLink} from "react-router-dom";
 import PropTypes from 'prop-types';
 import React, {Fragment, useState} from "react";
-import {Badge, Button, Hidden, Icon, IconButton} from "@material-ui/core";
+import {Badge, Button, Hidden, IconButton} from "@material-ui/core";
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';

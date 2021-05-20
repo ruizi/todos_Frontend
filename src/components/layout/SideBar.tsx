@@ -7,9 +7,9 @@ import {
     Hidden,
     Typography, ListItemIcon, ListItemText, ListItem
 } from "@material-ui/core";
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {Link, Link as RouterLink, useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
     AlertCircle as AlertCircleIcon,
@@ -122,8 +122,6 @@ const SideBar = (props: any) => {
             onMobileClose();
         }
     }, [location.pathname]);
-
-    console.log(todoGroups)
 
     const user = {
         avatar: 'https:' + userInfo.profile.avatar,

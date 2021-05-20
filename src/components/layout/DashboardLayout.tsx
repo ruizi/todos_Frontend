@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Navigate, Outlet} from 'react-router-dom';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../redux/store/AppState";
-import {loadTodos} from "../../redux/actions/todoItemAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

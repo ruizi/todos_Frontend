@@ -7,13 +7,16 @@ import {
     ListItemSecondaryAction,
     ListItemText, SvgIcon, TextField, Typography
 } from "@material-ui/core";
-import React, {Fragment} from "react";
+import React, {Fragment, useState} from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import {showDetails} from "../../../redux/actions/todoItemAction";
 import {TodoGroup} from "../../../redux/reducers/TodoReducer";
 import {Link} from "react-router-dom";
+import {BubbleChart, ChatRounded, Fingerprint} from "@material-ui/icons";
+import {updateAGroup} from "../../../redux/actions/todoGroupsAction";
+import {useDispatch} from "react-redux";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,13 +42,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const TodoGroupDetails = ({todoGroupDetail}: any) => {
+const TodoGroupDetails = ({todoGroupDetail, toggleTodoGroupDetailDrawer}: any) => {
     const classes = useStyles();
-    const todoGroup: TodoGroup = todoGroupDetail;
-    console.log(todoGroupDetail)
+    const dispatch = useDispatch();
+    const [updatedTodoGroup, setUpdatedTodoGroup] = useState<TodoGroup>(todoGroupDetail);
+
     return (
         <Fragment>
-            {todoGroup !== null && (
+            {updatedTodoGroup !== null && (
                 <Card className={classes.card}>
                     <CardHeader
                         title={
@@ -57,6 +61,10 @@ const TodoGroupDetails = ({todoGroupDetail}: any) => {
                             <div>
                                 <Button variant="contained" color="primary" type="submit"
                                         value="Submit"
+                                        onClick={() => {
+                                            updateAGroup(updatedTodoGroup, dispatch).then();
+                                            toggleTodoGroupDetailDrawer(false);
+                                        }}
                                         style={{
                                             textTransform: 'none',
                                             marginTop: "10px"
@@ -73,47 +81,47 @@ const TodoGroupDetails = ({todoGroupDetail}: any) => {
                                         <TextField required label="Group ID" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><Fingerprint/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
                                         }}
-                                                   onChange={(event) => {
-
-                                                   }}
-                                                   placeholder={todoGroup._id}
+                                                   placeholder={updatedTodoGroup._id}
                                                    variant="outlined"
                                                    disabled
-                                                   value={todoGroup._id}
+                                                   value={updatedTodoGroup._id}
                                         />
                                     </Grid>
                                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                         <TextField required label="GroupName" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><BubbleChart/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
                                         }}
                                                    onChange={(event) => {
-
+                                                       setUpdatedTodoGroup({
+                                                           ...updatedTodoGroup,
+                                                           groupName: event.target.value
+                                                       })
                                                    }}
-                                                   placeholder={todoGroup.groupName}
+                                                   placeholder={updatedTodoGroup.groupName}
                                                    variant="outlined"
-                                                   value={todoGroup.groupName}
+                                                   value={updatedTodoGroup.groupName}
                                         />
                                     </Grid>
                                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                        {todoGroup.todoList.length !== 0 && (
+                                        {updatedTodoGroup.todoList.length !== 0 && (
                                             <List className={classes.list}>
-                                                {todoGroup.todoList.map((todoItem, index) => {
+                                                {updatedTodoGroup.todoList.map((todoItem, index) => {
                                                     return (
-                                                        <ListItem divider={index < todoGroup.todoList.length}
+                                                        <ListItem divider={index < updatedTodoGroup.todoList.length}
                                                                   key={todoItem._id}
                                                                   button
                                                                   component={Link}
-                                                                  to={`/app/homepage/group/${todoGroup.groupName}`}>
+                                                                  to={`/app/homepage/group/${updatedTodoGroup.groupName}`}>
                                                             <ListItemAvatar>
                                                                 <Avatar>{index + 1}</Avatar>
                                                             </ListItemAvatar>

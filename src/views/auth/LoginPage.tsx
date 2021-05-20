@@ -2,12 +2,10 @@ import {Navigate,Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {
-    Box,
     Button,
     Card,
     CardContent,
     InputAdornment,
-    SvgIcon,
     TextField,
     Typography,
     Grid,
@@ -55,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         inputCard: {
             height: '80%',
-            //backgroundColor: 'transparent',
             opacity: 0.96,
         },
         cardContent: {
@@ -88,7 +85,6 @@ const LoginPage = () => {
 
     const submitInput = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        console.log(userEmail, userPassword);
         await login(userEmail, userPassword, dispatch);
     }
     if (isAuthed) {

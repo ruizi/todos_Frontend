@@ -67,13 +67,10 @@ const TodoGroupsManage = () => {
     };
 
     const showGroupDetails = () => (
-        <div className={classes.list} role="presentation"
-             // onClick={() => toggleTodoGroupDetailDrawer(false)}
-             // onKeyDown={() => toggleTodoGroupDetailDrawer(false)}
-        >
+        <div className={classes.list} role="presentation">
             <div className={classes.paddingBox}/>
             <div className={classes.itemDetailBox}>
-                <TodoGroupDetails todoGroupDetail={todoGroupDetail}/>
+                <TodoGroupDetails todoGroupDetail={todoGroupDetail} toggleTodoGroupDetailDrawer={toggleTodoGroupDetailDrawer}/>
             </div>
 
         </div>

@@ -30,7 +30,7 @@ const routes = [
             {path: '/homepage/', element: <TodoListLayout groupName={"Today"}/>},
             {path: '/homepage/group/today', element: <TodoListLayout groupName={"Today"}/>},
             {path: '/homepage/group/important', element: <TodoListLayout groupName={"Important"}/>},
-            {path: "/homepage/group/:name", element: <TodoListLayout/>},
+            {path: "/homepage/group/:name", element: <TodoListLayout groupName={""}/>},
             {path: '/homepage/group/add', element: <TodoGroupsManage/>},
             {path: '/homepage/user/account', element: <UserAccount/>},
             {path: '/homepage/user/settings', element: <UserSettings/>},

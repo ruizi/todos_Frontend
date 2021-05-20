@@ -1,19 +1,16 @@
 import {
-    Avatar, Button,
+    Button,
     Card, CardContent,
     CardHeader, Divider, Grid,
-    IconButton, InputAdornment, ListItem,
-    ListItemAvatar,
-    ListItemSecondaryAction,
-    ListItemText, SvgIcon, TextField, Typography
+    InputAdornment,
+    SvgIcon, TextField, Typography
 } from "@material-ui/core";
-import React, {Fragment, useEffect, useState} from "react";
-import SearchIcon from '@material-ui/icons/Search';
+import React, {Fragment, useState} from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
-import {AppState} from "../../../redux/store/AppState";
-import {TodoItem, updateATodoItem} from "../../../redux/actions/todoItemAction";
+import {useDispatch} from "react-redux";
+import {deleteATodoItem, TodoItem, updateATodoItem} from "../../../redux/actions/todoItemAction";
 import {KeyboardDatePicker, KeyboardTimePicker} from "@material-ui/pickers";
+import {ShortText, Title} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
         }, card: {
             height: '95%',
             backgroundColor: 'white'
+        }, btnGroup: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
         }
     }),
 );
@@ -61,23 +62,9 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                 <Card className={classes.card}>
                     <CardHeader
                         title={
-                            <Typography align="center" variant="h4">
+                            <Typography align="center" variant="h3">
                                 Todos details
                             </Typography>
-                        }
-                        action={
-                            <div>
-                                <Button variant="contained" color="primary" type="submit"
-                                        value="Submit"
-                                        onClick={() => {
-                                            updateATodoItem(updateTodoItem, dispatch).then();
-                                            toggleDrawer(false);
-                                        }}
-                                        style={{
-                                            textTransform: 'none',
-                                            marginTop: "10px"
-                                        }}>Update</Button>
-                            </div>
                         }
                     />
                     <Divider/>
@@ -89,7 +76,7 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                                         <TextField required label="Title" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><Title/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
@@ -106,7 +93,7 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                                         <TextField label="SubTitle" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><ShortText/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
@@ -122,7 +109,7 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                                                    value={updateTodoItem.subTitle}
                                         />
                                     </Grid>
-                                    <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                    <Grid item xl={4} lg={4} md={4} sm={6} xs={6}>
                                         <TextField
                                             select
                                             required
@@ -189,9 +176,33 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                                             onChange={(event) => {
                                                 setUpdateTodoItem({...updateTodoItem, description: event.target.value});
                                             }}
+                                            value={updateTodoItem.description}
                                             defaultValue=""
                                             variant="outlined"
                                         />
+                                    </Grid>
+                                    <Grid item xl={12} lg={12} sm={12} xs={12}>
+                                        <div className={classes.btnGroup}>
+                                            <Button variant="contained" color="primary" type="submit"
+                                                    value="Submit"
+                                                    onClick={() => {
+                                                        updateATodoItem(updateTodoItem, dispatch).then();
+                                                        toggleDrawer(false);
+                                                    }}
+                                                    style={{
+                                                        textTransform: 'none',
+                                                        marginTop: "10px"
+                                                    }}>Update</Button>
+                                            <Button variant="contained" color="secondary"
+                                                    onClick={() => {
+                                                        deleteATodoItem(updateTodoItem._id, dispatch).then()
+                                                        toggleDrawer(false);
+                                                    }}
+                                                    style={{
+                                                        textTransform: 'none',
+                                                        marginTop: "10px"
+                                                    }}>Delete</Button>
+                                        </div>
                                     </Grid>
                                 </Grid>
                             </div>
@@ -199,7 +210,6 @@ const TodoItemDetailsModule = ({todoItemDetail, toggleDrawer}: any) => {
                     </CardContent>
                 </Card>
             )}
-
         </Fragment>
     )
 }

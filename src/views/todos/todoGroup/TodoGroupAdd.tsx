@@ -1,21 +1,16 @@
 import {
-    Avatar, Button,
+    Button,
     Card, CardContent,
     CardHeader, Divider, Grid,
-    IconButton, InputAdornment, ListItem,
-    ListItemAvatar,
-    ListItemSecondaryAction,
-    ListItemText, SvgIcon, TextField, Typography
+    InputAdornment,
+    SvgIcon, TextField, Typography
 } from "@material-ui/core";
 import React, {Fragment, useState} from "react";
-import {List} from "@material-ui/icons";
-import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
-import SearchIcon from '@material-ui/icons/Search';
+import {BubbleChart, Face} from "@material-ui/icons";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../../redux/store/AppState";
 import {AuthInfo} from "../../../redux/reducers/AuthReducer";
-import {TodoGroup} from "../../../redux/reducers/TodoReducer";
 import {addAGroup} from "../../../redux/actions/todoGroupsAction";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,7 +59,7 @@ const TodoGroupAdd = () => {
                                         <TextField required label="GroupName" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><BubbleChart/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
@@ -83,7 +78,7 @@ const TodoGroupAdd = () => {
                                         <TextField label="Owner" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><Face/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )

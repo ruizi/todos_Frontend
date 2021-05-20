@@ -1,6 +1,5 @@
 import {useSelector} from "react-redux";
 import {AppState} from "../../redux/store/AppState";
-import {Link, Navigate} from 'react-router-dom';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import {NavLink as RouterLink} from 'react-router-dom';
@@ -55,11 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const WelcomePage = () => {
-    const {isAuthed} = useSelector((state: AppState) => state.auth);
     const classes = useStyles();
-    // if (isAuthed === true) {
-    //     return <Navigate to="/app/homepage"/>;
-    // }
     return (
         <section className={classes.landingSection}>
             <div className={classes.mainContent}>

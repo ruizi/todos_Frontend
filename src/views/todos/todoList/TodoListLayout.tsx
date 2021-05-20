@@ -64,8 +64,8 @@ const TodoListLayout = ({groupName}: any | null) => {
 
     const classes = useStyles();
 
-    if (groupName === null) {
-        groupName = params;
+    if (groupName === "") {
+        groupName = params.name;
     }
 
     const todoGroup = todoGroups.filter((todoGroup: TodoGroup) => {
@@ -87,8 +87,6 @@ const TodoListLayout = ({groupName}: any | null) => {
 
     const showDetails = () => (
         <div className={classes.list} role="presentation"
-            //onClick={() => toggleDrawer(false)}
-            //onKeyDown={() => toggleDrawer(false)}
         >
             <div className={classes.paddingBox}/>
             <div className={classes.itemDetailBox}>

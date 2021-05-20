@@ -6,20 +6,17 @@ import {
     SvgIcon, TextField, Typography
 } from "@material-ui/core";
 import React, {Fragment, useEffect, useState} from "react";
-import SearchIcon from '@material-ui/icons/Search';
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-//import MuiPickersUtilsProvider, {DateTimePicker} from "@material-ui/pickers";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
 import {
-    MuiPickersUtilsProvider,
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import DateFnsUtils from "@date-io/date-fns";
 import {addATodoItem} from "../../../redux/actions/todoItemAction";
 import {useDispatch} from "react-redux";
+import {ShortText, Title} from "@material-ui/icons";
 
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         inputBox: {
             width: '100%',
@@ -32,30 +29,36 @@ const useStyles = makeStyles((theme: Theme) =>
         }, card: {
             height: '95%',
             backgroundColor: 'white'
+        }, btnGroup: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
         }
     }),
 );
 
 
 const AddNewTodoItemModule = ({todoGroup}: any) => {
-    console.log(todoGroup)
     const classes = useStyles();
     const dispatch = useDispatch();
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-    const [newTodoItem, setNewTodoItem] = useState({
+
+    const initialInputBox = {
         title: '',
         subTitle: '',
-        repeat: '',
+        repeatCircle: '---',
         scheduleAt: new Date().toISOString(),
         description: '',
         groupId: '',
-    })
+    }
 
-    useEffect(()=>{
-        if(todoGroup!==undefined){
-            setNewTodoItem({...newTodoItem,groupId:todoGroup._id})
+    const [newTodoItem, setNewTodoItem] = useState(initialInputBox);
+
+    useEffect(() => {
+        if (todoGroup !== undefined) {
+            setNewTodoItem({...newTodoItem, groupId: todoGroup._id})
         }
-    },[todoGroup])
+    }, [setNewTodoItem])
 
     const buildOptions = () => {
         const arr = [];
@@ -78,22 +81,9 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
             <Card className={classes.card}>
                 <CardHeader
                     title={
-                        <Typography align="center" variant="h4">
-                            New Todos
+                        <Typography align="center" variant="h3">
+                            New TodoItem
                         </Typography>
-                    }
-                    action={
-                        <div>
-                            <Button variant="contained" color="primary" type="submit" onClick={() => {
-                                addATodoItem(newTodoItem, dispatch).then();
-                            }
-                            }
-                                    value="Submit"
-                                    style={{
-                                        textTransform: 'none',
-                                        marginTop: "10px"
-                                    }}>Add</Button>
-                        </div>
                     }
                 />
                 <Divider/>
@@ -106,7 +96,7 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                         <TextField required label="Title" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><Title/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
@@ -125,7 +115,7 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                         <TextField label="SubTitle" fullWidth InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <SvgIcon fontSize="small" color="action"><SearchIcon/>
+                                                    <SvgIcon fontSize="small" color="action"><ShortText/>
                                                     </SvgIcon>
                                                 </InputAdornment>
                                             )
@@ -148,10 +138,10 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                         required
                                         margin="normal"
                                         label="Repeat"
-                                        value={newTodoItem.repeat}
+                                        value={newTodoItem.repeatCircle}
                                         // onChange={handleYearChange}
                                         onChange={(event) => {
-                                            setNewTodoItem({...newTodoItem, repeat: event.target.value});
+                                            setNewTodoItem({...newTodoItem, repeatCircle: event.target.value});
                                         }}
                                         SelectProps={{
                                             native: true,
@@ -207,9 +197,31 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                         onChange={(event) => {
                                             setNewTodoItem({...newTodoItem, description: event.target.value});
                                         }}
+                                        value={newTodoItem.description}
                                         defaultValue=""
                                         variant="outlined"
-                                    />
+                                    /></Grid>
+                                <Grid item xl={12} lg={12} sm={12} xs={12}>
+                                    <div className={classes.btnGroup}>
+                                        <Button variant="contained" color="primary" type="submit"
+                                                onClick={() => {
+                                                    addATodoItem(newTodoItem, dispatch).then();
+                                                    setNewTodoItem(initialInputBox);
+                                                }}
+                                                value="Submit"
+                                                style={{
+                                                    textTransform: 'none',
+                                                    marginTop: "10px"
+                                                }}>Add New</Button>
+                                        <Button variant="contained" color="inherit" type="reset"
+                                                onClick={() => {
+                                                    setNewTodoItem(initialInputBox);
+                                                }}
+                                                style={{
+                                                    textTransform: 'none',
+                                                    marginTop: "10px"
+                                                }}>Clear Form</Button>
+                                    </div>
                                 </Grid>
                             </Grid>
                         </div>
@@ -218,5 +230,6 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
             </Card>
         </Fragment>
     )
-}
+};
+
 export default AddNewTodoItemModule;
