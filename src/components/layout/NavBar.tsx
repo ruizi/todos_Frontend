@@ -4,15 +4,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import {useDispatch, useSelector} from "react-redux";
-import {AppState} from "../../store/AppState";
-import {NavLink as RouterLink} from "react-router-dom";
+import {AppState} from "../../redux/store/AppState";
+import {Link, NavLink as RouterLink} from "react-router-dom";
 import PropTypes from 'prop-types';
 import React, {Fragment, useState} from "react";
 import {Badge, Button, Hidden, Icon, IconButton} from "@material-ui/core";
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
-import {logout} from "../../actions/authAction";
+import {logout} from "../../redux/actions/authAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: "0px",
             display: "block",
             zIndex: theme.zIndex.drawer + 1,
+        },
+        toolBar:{
+            paddingLeft: "5px",
         },
         button: {
             color: "inherit",
@@ -70,7 +73,7 @@ const NavBar = (props: any) => {
 
     const publicLinks = (
         <Fragment>
-            <Button component={RouterLink} className={classes.button} to="/login"><Typography
+            <Button component={RouterLink} className={classes.button} to="/register"><Typography
                 variant="h5">Sign Up</Typography></Button>
             <Button component={RouterLink} className={classes.button} to="/login"><Typography
                 variant="h5">Sign In</Typography></Button>
@@ -79,14 +82,19 @@ const NavBar = (props: any) => {
 
     return (
         <AppBar className={classes.appBar}>
-            <Toolbar>
-                <Icon>
+            <Toolbar className={classes.toolBar}>
+                {/*<Icon >*/}
+                {/*    <TrackChangesIcon/>*/}
+                {/*</Icon>*/}
+                <IconButton component={Link} to="/" color="inherit">
                     <TrackChangesIcon/>
-                </Icon>
+                </IconButton>
+
 
                 <Typography variant="h3" className={classes.title}>
-                    &nbsp; My Todos
+                    &nbsp;&nbsp; My Todos
                 </Typography>
+
 
                 <div style={{flexGrow: 1}}/>
                 <Hidden smDown>

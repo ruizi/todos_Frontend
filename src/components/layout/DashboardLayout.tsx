@@ -1,28 +1,32 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Navigate, Outlet} from 'react-router-dom';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import NavBar from "../NavBar";
-import SideBar from "../SideBar";
-import {useSelector} from "react-redux";
-import {AppState} from "../../../store/AppState";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
+import {useDispatch, useSelector} from "react-redux";
+import {AppState} from "../../redux/store/AppState";
+import {loadTodos} from "../../redux/actions/todoItemAction";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         DashboardLayoutRoot: {
             backgroundColor: theme.palette.background.default,
             display: 'flex',
-            height: '100%',
+            height: '100vh',
             overflow: 'hidden',
-            width: '100%'
+            width: '100%',
+            // minWidth: '339px',
+            // padding: '0px'
         },
         DashboardLayoutWrapper: {
             display: 'flex',
             flex: '1 1 auto',
             overflow: 'hidden',
+            height: '100%',
             paddingTop: 64,
-            [theme.breakpoints.up('lg')]: {
+            [theme.breakpoints.up('md')]: {
                 paddingLeft: 256
-            }
+            },
         },
         DashboardLayoutContainer: {
             display: 'flex',
@@ -31,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         DashboardLayoutContent: {
             flex: '1 1 auto',
-            height: '100%',
+            height: '100vh',
             overflow: 'auto'
         },
     }),
@@ -42,9 +46,11 @@ const DashboardLayout = () => {
     const {isAuthed} = useSelector((state: AppState) => state.auth);
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const classes = useStyles();
-
+    const dispatch = useDispatch();
+    // useEffect(() => {
+    //     loadTodos(dispatch).then();
+    // }, [])
     if (!isAuthed) {
-        console.log(isAuthed)
         return <Navigate to="/login"/>;
     }
 
@@ -55,13 +61,13 @@ const DashboardLayout = () => {
                 onMobileClose={() => setMobileNavOpen(false)}
                 openMobile={isMobileNavOpen}
             />
-            {/*<div className={classes.DashboardLayoutWrapper}>*/}
-            {/*    <div className={classes.DashboardLayoutContainer}>*/}
-            {/*        <div className={classes.DashboardLayoutContent}>*/}
-            {/*            <Outlet/>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div className={classes.DashboardLayoutWrapper}>
+                <div className={classes.DashboardLayoutContainer}>
+                    <div className={classes.DashboardLayoutContent}>
+                        <Outlet/>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

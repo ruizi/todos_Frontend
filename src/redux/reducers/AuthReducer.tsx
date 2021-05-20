@@ -1,4 +1,4 @@
-import {myAction} from "../utils/actionType";
+import {myAction} from "../../utils/actionType";
 import {
     AUTH_ERROR,
     LOG_OUT,

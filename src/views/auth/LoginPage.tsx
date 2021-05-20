@@ -1,11 +1,13 @@
-import {Navigate, Link} from 'react-router-dom';
+import {Navigate,Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {
+    Box,
     Button,
     Card,
     CardContent,
     InputAdornment,
+    SvgIcon,
     TextField,
     Typography,
     Grid,
@@ -14,15 +16,16 @@ import {
 import image from "../../assets/imgs/landingBackground.jpeg";
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {AccountCircle} from "@material-ui/icons";
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import LockRoundedIcon from '@material-ui/icons/LockRounded';
+//import { Redirect } from "react-router-dom";
 
-import {register} from '../../actions/authAction';
-import {AppState} from "../../store/AppState";
+import {login} from '../../redux/actions/authAction';
+import {AppState} from "../../redux/store/AppState";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        registerSection: {
+        loginSection: {
             position: 'relative',
             backgroundImage: "url(" + image + ")",
             backgroundSize: "cover",
@@ -51,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
         },
         inputCard: {
-            height: '90%',
+            height: '80%',
             //backgroundColor: 'transparent',
             opacity: 0.96,
         },
@@ -76,36 +79,29 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const RegisterPage = () => {
+const LoginPage = () => {
     const {isAuthed} = useSelector((state: AppState) => state.auth);
     const classes = useStyles();
     const [userEmail, setUserEmail] = useState('');
-    const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [registerStatus, setRegisterStatus] = useState(false);
     const dispatch = useDispatch();
 
     const submitInput = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        register(userEmail, userName, userPassword, dispatch).then(() => {
-            setRegisterStatus(true);
-        });
+        console.log(userEmail, userPassword);
+        await login(userEmail, userPassword, dispatch);
     }
     if (isAuthed) {
         return <Navigate to="/app/homepage"/>;
     }
 
-    if(registerStatus){
-        return <Navigate to="/login"/>;
-    }
-
     return (
         <div>
             <Helmet>
-                <title>Sign Up</title>
+                <title>Login</title>
             </Helmet>
 
-            <section className={classes.registerSection}>
+            <section className={classes.loginSection}>
                 <div className={classes.mainContent}>
                     <div className={classes.innerBox}>
                         <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
@@ -113,44 +109,28 @@ const RegisterPage = () => {
                                 <form onSubmit={submitInput}>
                                     <CardHeader title={
                                         <Typography align="center" variant="h3">
-                                            Create an Account
+                                            Welcome back!
                                         </Typography>
                                     }/>
                                     <Divider/>
                                     <CardContent className={classes.cardContent}>
                                         <TextField
                                             className={classes.margin}
+                                            // id="input-with-icon-textfield"
                                             label="Email"
                                             required
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
-                                                        <AccountCircle/>
+                                                        <AlternateEmailIcon/>
                                                     </InputAdornment>
                                                 ),
                                             }}
                                             onChange={(event) => {
                                                 setUserEmail(event.target.value)
                                             }}
-                                            placeholder="Please input your email address"
-                                            value={userEmail}
-                                        />
-                                        <TextField
-                                            className={classes.margin}
-                                            label="Username"
-                                            required
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <AccountCircle/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                            onChange={(event) => {
-                                                setUserName(event.target.value)
-                                            }}
                                             placeholder="Please input your username"
-                                            value={userName}
+                                            value={userEmail}
                                         />
                                         <TextField
                                             className={classes.margin}
@@ -174,14 +154,14 @@ const RegisterPage = () => {
                                             <Button variant="contained" color="primary" style={{width: '100%'}}
                                                     type="submit"
                                                     value="Submit">
-                                                Register Now
+                                                Login In Now
                                             </Button>
                                         </div>
                                         <div className={classes.forgetAndRegister}>
                                             <Typography align="center" variant="h5">
-                                                Already have an account?&nbsp;
-                                                <Link to="/login" color='textPrimary'>
-                                                    Sign In
+                                                Don't have an account?&nbsp;
+                                                <Link to="/register" color='primary'>
+                                                    Sign up
                                                 </Link>
                                             </Typography>
                                         </div>
@@ -192,8 +172,10 @@ const RegisterPage = () => {
                     </div>
                 </div>
             </section>
+
+
         </div>
     );
 }
 
-export default RegisterPage;
+export default LoginPage;

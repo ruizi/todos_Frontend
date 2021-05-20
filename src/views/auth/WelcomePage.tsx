@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {AppState} from "../../store/AppState";
+import {AppState} from "../../redux/store/AppState";
 import {Link, Navigate} from 'react-router-dom';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";

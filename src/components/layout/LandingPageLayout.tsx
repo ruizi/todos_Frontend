@@ -1,6 +1,6 @@
 import {useState} from "react";
-import NavBar from "../NavBar";
-import SideBar from "../SideBar";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
 import {Outlet} from "react-router-dom";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             height: '100%',
             overflow: 'hidden',
-            width: '100%'
+            width: '100%',
+            minWidth: '339px', padding: '0px'
         },
         LandingLayoutWrapper: {
             display: 'flex',
