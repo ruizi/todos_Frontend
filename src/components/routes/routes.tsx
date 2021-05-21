@@ -27,9 +27,7 @@ const routes = [
         path: 'app',
         element: <DashboardLayout/>,
         children: [
-            {path: '/homepage/', element: <Navigate to="/app/homepage/group/today"/>},
-            {path: '/homepage/group/today', element: <TodoListLayout groupName={''}/>},
-            {path: "/homepage/group/:id", element: <TodoListLayout groupName={""}/>},
+            {path: "/homepage/group/:id", element: <TodoListLayout/>},
             {path: '/homepage/group/add', element: <TodoGroupsManage/>},
             {path: '/homepage/user/account', element: <UserAccount/>},
             {path: '/homepage/user/settings', element: <UserSettings/>},

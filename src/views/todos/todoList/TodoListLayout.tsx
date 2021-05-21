@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const TodoListLayout = ({groupName}: any | null) => {
+const TodoListLayout = () => {
     const {todoGroups} = useSelector((state: AppState) => state.todo);
     const [openDrawer, setOpenDrawer] = React.useState(false);
     const [todoItemDetail, setTodoItemDetail] = React.useState({});
