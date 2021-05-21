@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/todos_Frontend/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/todos_Frontend/static/js/main.111bd627.chunk.js",
-    "main.js.map": "/todos_Frontend/static/js/main.111bd627.chunk.js.map",
-    "runtime-main.js": "/todos_Frontend/static/js/runtime-main.d94dd69d.js",
-    "runtime-main.js.map": "/todos_Frontend/static/js/runtime-main.d94dd69d.js.map",
-    "static/js/2.72c72c8c.chunk.js": "/todos_Frontend/static/js/2.72c72c8c.chunk.js",
-    "static/js/2.72c72c8c.chunk.js.map": "/todos_Frontend/static/js/2.72c72c8c.chunk.js.map",
-    "static/js/3.6799194b.chunk.js": "/todos_Frontend/static/js/3.6799194b.chunk.js",
-    "static/js/3.6799194b.chunk.js.map": "/todos_Frontend/static/js/3.6799194b.chunk.js.map",
-    "index.html": "/todos_Frontend/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/todos_Frontend/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.72c72c8c.chunk.js.LICENSE.txt": "/todos_Frontend/static/js/2.72c72c8c.chunk.js.LICENSE.txt",
-    "static/media/landingBackground.de13573b.jpeg": "/todos_Frontend/static/media/landingBackground.de13573b.jpeg"
+    "main.css": "/todo_Frontend/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/todo_Frontend/static/js/main.111bd627.chunk.js",
+    "main.js.map": "/todo_Frontend/static/js/main.111bd627.chunk.js.map",
+    "runtime-main.js": "/todo_Frontend/static/js/runtime-main.c3180892.js",
+    "runtime-main.js.map": "/todo_Frontend/static/js/runtime-main.c3180892.js.map",
+    "static/js/2.72c72c8c.chunk.js": "/todo_Frontend/static/js/2.72c72c8c.chunk.js",
+    "static/js/2.72c72c8c.chunk.js.map": "/todo_Frontend/static/js/2.72c72c8c.chunk.js.map",
+    "static/js/3.6799194b.chunk.js": "/todo_Frontend/static/js/3.6799194b.chunk.js",
+    "static/js/3.6799194b.chunk.js.map": "/todo_Frontend/static/js/3.6799194b.chunk.js.map",
+    "index.html": "/todo_Frontend/index.html",
+    "static/css/main.9d5b29c0.chunk.css.map": "/todo_Frontend/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.72c72c8c.chunk.js.LICENSE.txt": "/todo_Frontend/static/js/2.72c72c8c.chunk.js.LICENSE.txt",
+    "static/media/landingBackground.de13573b.jpeg": "/todo_Frontend/static/media/landingBackground.de13573b.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d94dd69d.js",
+    "static/js/runtime-main.c3180892.js",
     "static/js/2.72c72c8c.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
     "static/js/main.111bd627.chunk.js"
