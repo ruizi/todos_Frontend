@@ -135,7 +135,7 @@ const SideBar = (props: any) => {
     if (todoGroups !== null) {
         for (const todoGroup of todoGroups) {
             let groupBtn = {
-                href: '/app/homepage/group/' + todoGroup.groupName.toLowerCase(),
+                href: '/app/homepage/group/' + todoGroup._id,
                 icon: todoGroup.groupName === 'Today' ? CalendarIcon : (todoGroup.groupName === 'Important' ? CommandIcon : DataBaseIcon),
                 title: todoGroup.groupName
             }

@@ -121,7 +121,7 @@ const TodoGroupDetails = ({todoGroupDetail, toggleTodoGroupDetailDrawer}: any) =
                                                                   key={todoItem._id}
                                                                   button
                                                                   component={Link}
-                                                                  to={`/app/homepage/group/${updatedTodoGroup.groupName}`}>
+                                                                  to={`/app/homepage/group/${updatedTodoGroup._id}`}>
                                                             <ListItemAvatar>
                                                                 <Avatar>{index + 1}</Avatar>
                                                             </ListItemAvatar>

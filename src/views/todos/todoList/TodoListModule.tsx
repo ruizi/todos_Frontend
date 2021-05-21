@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const TodoListModule = ({props, groupName, toggleDrawer}: any) => {
+const TodoListModule = ({todoGroup, toggleDrawer}: any) => {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([-1]);
     let todoList: Array<TodoItem> = [];
     const dispatch = useDispatch();
 
-    if (props) {
-        todoList = props.todoList;
+    if (todoGroup) {
+        todoList = todoGroup[0].todoList;
     }
 
     const handleToggle = async (todoItem: TodoItem, value: number) => {
@@ -61,8 +61,8 @@ const TodoListModule = ({props, groupName, toggleDrawer}: any) => {
             <Card className={classes.card}>
                 <CardHeader
                     title={
-                        <Typography align="center" variant="h3" style={{textTransform:'capitalize'}} >
-                            {groupName}
+                        <Typography align="center" variant="h3" style={{textTransform: 'capitalize'}}>
+                            {todoGroup[0].groupName}
                         </Typography>
                     }
                 />

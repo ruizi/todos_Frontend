@@ -64,14 +64,9 @@ const TodoListLayout = ({groupName}: any | null) => {
 
     const classes = useStyles();
 
-    if (groupName === "") {
-        groupName = params.name;
-    }
-
     const todoGroup = todoGroups.filter((todoGroup: TodoGroup) => {
-        return todoGroup.groupName === groupName;
+        return todoGroup._id === params.id;
     })
-
 
     if (todoGroup === null) {
         return <Navigate to="/404"/>;
@@ -104,7 +99,7 @@ const TodoListLayout = ({groupName}: any | null) => {
                         <Grid container spacing={2}>
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                                 <div className={classes.cards}>
-                                    <TodoListModule props={todoGroup[0]} groupName={groupName}
+                                    <TodoListModule todoGroup={todoGroup}
                                                     toggleDrawer={toggleDrawer}/>
                                 </div>
                             </Grid>

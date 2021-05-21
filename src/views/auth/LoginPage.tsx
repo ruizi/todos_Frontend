@@ -1,4 +1,4 @@
-import {Navigate,Link} from 'react-router-dom';
+import {Navigate, Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {
@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const LoginPage = () => {
     const {isAuthed} = useSelector((state: AppState) => state.auth);
+    const todos = useSelector((state: AppState) => state.todo);
     const classes = useStyles();
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -87,8 +88,8 @@ const LoginPage = () => {
         event.preventDefault();
         await login(userEmail, userPassword, dispatch);
     }
-    if (isAuthed) {
-        return <Navigate to="/app/homepage"/>;
+    if (isAuthed && todos.todoGroups.length !== 0) {
+        return <Navigate to={`/app/homepage/group/${ todos.todoGroups[0]._id}`}/>;
     }
 
     return (

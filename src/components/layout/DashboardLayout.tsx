@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100vh',
             overflow: 'hidden',
             width: '100%',
-            // minWidth: '339px',
-            // padding: '0px'
+            minWidth: '339px',
+            //padding: '0px'
         },
         DashboardLayoutWrapper: {
             display: 'flex',
@@ -45,7 +45,7 @@ const DashboardLayout = () => {
     const {isAuthed} = useSelector((state: AppState) => state.auth);
     const [isMobileNavOpen, setMobileNavOpen] = useState(false);
     const classes = useStyles();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // useEffect(() => {
     //     loadTodos(dispatch).then();
     // }, [])

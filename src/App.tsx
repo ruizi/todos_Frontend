@@ -23,7 +23,7 @@ const App = () => {
         if (localStorage.token) {
             loadUser(dispatch).then();
         }
-    }, []);
+    }, [dispatch]);
 
     const routingPath = useRoutes(routes);
     return (

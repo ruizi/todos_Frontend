@@ -75,11 +75,11 @@ export const login = async (email: string, password: string, dispatch: Dispatch<
                 'userInfo': responseForProfile.data
             },
         })
-        loadTodos(dispatch).then();
+        await loadTodos(dispatch);
         AddMessage("Welcome Back!", "success", dispatch);
     } catch (error) {
         AddMessage("Please check your input!", "info", dispatch);
-        AddMessage(error.response.data.message, "error", dispatch);
+        AddMessage(error, "error", dispatch);
         dispatch({
             type: LOGIN_ERROR,
             payload: {

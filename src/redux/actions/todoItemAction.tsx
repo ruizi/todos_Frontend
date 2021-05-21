@@ -71,7 +71,7 @@ export const updateATodoItem = async (todoItem: TodoItem, dispatch: Dispatch<myA
 export const addATodoItem = async (newTodoItem: any, dispatch: Dispatch<myAction>) => {
     try {
         const reqBodyContent = JSON.stringify(newTodoItem)
-        const response = await axios.post('/api/todo/todoItem', reqBodyContent, sendDateAxisConfig())
+        const response = await axios.post('/api/todo/', reqBodyContent, sendDateAxisConfig())
         dispatch({
             type: TODO_ADD_SUCCESS,
             payload: response.data

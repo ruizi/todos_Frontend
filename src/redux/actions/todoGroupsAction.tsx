@@ -58,6 +58,7 @@ export const deleteAGroup = async (todoGroup: TodoGroup, dispatch: Dispatch<myAc
             type: TODO_GROUP_DELETE_SUCCESS,
             payload: todoGroup
         })
+        await loadTodos(dispatch)
         AddMessage("Delete a new group successfully", "success", dispatch);
     } catch (error) {
         AddMessage(error.response.data.message, "error", dispatch);

@@ -43,7 +43,7 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
     const dispatch = useDispatch();
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
-    const initialInputBox = {
+    let initialInputBox = {
         title: '',
         subTitle: '',
         repeatCircle: '---',
@@ -53,6 +53,10 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
     }
 
     const [newTodoItem, setNewTodoItem] = useState(initialInputBox);
+
+    const resetInputBox = () => {
+        setNewTodoItem({...initialInputBox,groupId: todoGroup._id})
+    }
 
     useEffect(() => {
         if (todoGroup !== undefined) {
@@ -206,7 +210,7 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                         <Button variant="contained" color="primary" type="submit"
                                                 onClick={() => {
                                                     addATodoItem(newTodoItem, dispatch).then();
-                                                    setNewTodoItem(initialInputBox);
+                                                    resetInputBox();
                                                 }}
                                                 value="Submit"
                                                 style={{
@@ -214,9 +218,7 @@ const AddNewTodoItemModule = ({todoGroup}: any) => {
                                                     marginTop: "10px"
                                                 }}>Add New</Button>
                                         <Button variant="contained" color="inherit" type="reset"
-                                                onClick={() => {
-                                                    setNewTodoItem(initialInputBox);
-                                                }}
+                                                onClick={() => {resetInputBox();}}
                                                 style={{
                                                     textTransform: 'none',
                                                     marginTop: "10px"
